@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 import csv
 from collections import defaultdict
 from pathlib import Path
@@ -318,22 +315,22 @@ def generate_html_report(statistics):
 <body>
     <div class="container">
         <div class="header">
-            <h1>📊 Отчет успеваемости студентов</h1>
+            <h1> Отчет успеваемости студентов</h1>
             <p>Данные успеваемости по группам</p>
         </div>
         
         <div class="content">
             <div class="stats-summary">
                 <div class="stat-card">
-                    <h3>📚 Всего групп</h3>
+                    <h3> Всего групп</h3>
                     <div class="value">{len(statistics)}</div>
                 </div>
                 <div class="stat-card">
-                    <h3>👨‍🎓 Всего студентов</h3>
+                    <h3> Всего студентов</h3>
                     <div class="value">{total_students}</div>
                 </div>
                 <div class="stat-card">
-                    <h3>⭐ Общий средний балл</h3>
+                    <h3> Общий средний балл</h3>
                     <div class="value">{round(overall_avg, 2)}</div>
                 </div>
             </div>
@@ -344,9 +341,9 @@ def generate_html_report(statistics):
                 <table>
                     <thead>
                         <tr>
-                            <th>📌 Группа</th>
-                            <th>📈 Средний балл</th>
-                            <th>👥 Количество студентов</th>
+                            <th> Группа</th>
+                            <th> Средний балл</th>
+                            <th> Количество студентов</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -357,7 +354,7 @@ def generate_html_report(statistics):
         </div>
         
         <div class="footer">
-            <p>📅 Отчет сгенерирован автоматически | Данные актуальны на момент создания</p>
+            <p> Отчет сгенерирован автоматически | Данные актуальны на момент создания</p>
             <p style="margin-top: 10px; font-size: 0.85em;">Система оценки: 90+ - Отлично | 75-89 - Хорошо | 60-74 - Удовлетворительно | &lt;60 - Требует внимания</p>
         </div>
     </div>
@@ -378,11 +375,11 @@ def save_html_report(html_content, filename='report.html'):
     try:
         with open(filename, 'w', encoding='utf-8') as file:
             file.write(html_content)
-        print(f"✅ Отчет успешно создан: {filename}")
-        print(f"📂 Полный путь: {Path(filename).absolute()}")
+        print(f" Отчет успешно создан: {filename}")
+        print(f" Полный путь: {Path(filename).absolute()}")
         return True
     except Exception as e:
-        print(f"❌ Ошибка при сохранении файла: {e}")
+        print(f" Ошибка при сохранении файла: {e}")
         return False
 
 def main():
@@ -390,25 +387,25 @@ def main():
     Основная функция скрипта
     """
     print("=" * 60)
-    print("📊 ГЕНЕРАТОР HTML-ОТЧЕТА УСПЕВАЕМОСТИ")
+    print(" ГЕНЕРАТОР HTML-ОТЧЕТА УСПЕВАЕМОСТИ")
     print("=" * 60)
     
     # Читаем CSV файл
     students = read_csv_file('students.csv')
     
     if students is None:
-        print("\n❌ Не удалось загрузить данные. Проверьте файл students.csv")
+        print("\n Не удалось загрузить данные. Проверьте файл students.csv")
         return
     
     if len(students) == 0:
-        print("❌ Нет данных для обработки")
+        print(" Нет данных для обработки")
         return
     
-    print(f"✅ Загружено студентов: {len(students)}")
+    print(f" Загружено студентов: {len(students)}")
     
     # Рассчитываем статистику
     statistics = calculate_statistics(students)
-    print(f"✅ Обработано групп: {len(statistics)}")
+    print(f" Обработано групп: {len(statistics)}")
     
     # Генерируем HTML отчет
     html_content = generate_html_report(statistics)
@@ -416,16 +413,16 @@ def main():
     # Сохраняем отчет
     if save_html_report(html_content):
         print("\n" + "=" * 60)
-        print("🎉 ОТЧЕТ УСПЕШНО СОЗДАН!")
+        print(" ОТЧЕТ УСПЕШНО СОЗДАН!")
         print("=" * 60)
-        print("\n📌 Чтобы открыть отчет в браузере:")
+        print("\n Чтобы открыть отчет в браузере:")
         print("   1. Найдите файл report.html в текущей папке")
         print("   2. Дважды кликните по нему или откройте через браузер")
         print("   3. Либо выполните команду:")
         print("      - Windows: start report.html")
         print("      - Mac: open report.html")
         print("      - Linux: xdg-open report.html")
-        print("\n✨ Отчет содержит таблицу с группами, средним баллом и количеством студентов")
+        print("\n Отчет содержит таблицу с группами, средним баллом и количеством студентов")
 
 if __name__ == "__main__":
     main()

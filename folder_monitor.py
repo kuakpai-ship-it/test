@@ -1,7 +1,3 @@
-# folder_monitor.py
-# Скрипт для мониторинга папки Incoming
-# Новичковый стиль кода - просто и понятно
-
 import os
 import time
 import shutil
@@ -11,7 +7,7 @@ from datetime import datetime
 INCOMING_FOLDER = "./Incoming"
 ARCHIVE_FOLDER = "./Archive"
 LOG_FILE = "log.txt"
-CHECK_INTERVAL = 10  # секунд
+CHECK_INTERVAL = 10  
 
 # Создаем папки, если их нет
 if not os.path.exists(INCOMING_FOLDER):

@@ -1,0 +1,5 @@
+timestamp,user_id,username,first_name,last_name,command,query,result,file_sent
+2026-05-19 12:03:27,8757621757,N/A,Azat,Kuakpai,/start,,справка показана,No
+2026-05-19 12:03:43,8757621757,N/A,Azat,Kuakpai,/list,,показано 2 документов,No
+2026-05-19 12:04:10,8757621757,N/A,Azat,Kuakpai,/find,приказ,ничего не найдено,No
+2026-05-19 12:04:16,8757621757,N/A,Azat,Kuakpai,/find,отчет,найдено 2 файлов,No

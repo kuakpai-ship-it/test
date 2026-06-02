@@ -1,0 +1,2 @@
+{"timestamp": "2026-06-02T14:08:00.750913", "action": "backup", "status": "success", "backup_file": "C:\\Users\\PREDATOR\\OneDrive\\Documents\\project 1\\.vscode\\SQL WORK\\backups\\Company_backup_2026-06-02_14-08-00.db", "size_mb": 0.01}
+{"timestamp": "2026-06-02T14:08:41.941606", "action": "restore", "status": "success", "restored_from": "Company_backup_2026-06-02_14-08-00.db"}

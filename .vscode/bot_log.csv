@@ -22,3 +22,6 @@ timestamp,user_id,username,first_name,last_name,command,query,result,file_sent
 2026-05-19 14:54:27,8757621757,N/A,Azat,Kuakpai,/find,справка_налоговая,отправлен: справка_налоговая.txt,Yes
 2026-05-19 14:54:44,8757621757,N/A,Azat,Kuakpai,/start,,"справка, файлов: 59",No
 2026-05-19 14:54:47,8757621757,N/A,Azat,Kuakpai,/list,,показано 59 файлов,No
+2026-05-28 09:19:50,8757621757,N/A,Azat,Kuakpai,/find,приказ 5,ничего не найдено,No
+2026-05-28 09:20:16,8757621757,N/A,Azat,Kuakpai,/find,приказ_№5.pdf,найдено 1,No
+2026-05-28 09:20:16,8757621757,N/A,Azat,Kuakpai,/find,приказ_№5.pdf,отправлен: приказ_№5.pdf,Yes

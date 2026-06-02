@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет о сотрудниках компании</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .main-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            background: #f8f9fc;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card h3 {
+            color: #666;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .stat-unit {
+            font-size: 0.8em;
+            color: #999;
+            margin-left: 5px;
+        }
+        
+        .stat-sub {
+            color: #888;
+            font-size: 0.8em;
+            margin-top: 8px;
+        }
+        
+        .table-wrapper {
+            padding: 0 40px 40px 40px;
+        }
+        
+        .table-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+        
+        tr:hover {
+            background: #f8f9fc;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .employee-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .salary-high {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .salary-medium {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .salary-low {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .salary-zero {
+            color: #999;
+            font-weight: bold;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+        
+        .badge-it {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .badge-hr {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        
+        .badge-default {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+        }
+        
+        .empty-state .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            .table-wrapper {
+                padding: 0 20px 20px 20px;
+                overflow-x: auto;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-card">
+            <div class="header">
+                <h1>📊 HR Аналитика</h1>
+                <p>Отчет по сотрудникам компании</p>
+                <div class="date-badge">
+                    📅 Сформирован: 02.06.2026 в 13:54
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <h3>Всего сотрудников</h3>
+                    <div class="stat-value">4</div>
+                    <div class="stat-sub">человек в штате</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <h3>Средняя зарплата</h3>
+                    <div class="stat-value">22,500<span class="stat-unit">₸</span></div>
+                    <div class="stat-sub">в среднем по компании</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <h3>Максимальная</h3>
+                    <div class="stat-value">90,000<span class="stat-unit">₸</span></div>
+                    <div class="stat-sub">самая высокая зарплата</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📉</div>
+                    <h3>Минимальная</h3>
+                    <div class="stat-value">0<span class="stat-unit">₸</span></div>
+                    <div class="stat-sub">самая низкая зарплата</div>
+                </div>
+            </div>
+            
+            <div class="table-wrapper">
+                <div class="table-title">📋 Список сотрудников</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ФИО</th>
+                            <th>Должность</th>
+                            <th>Зарплата</th>
+                            <th>Дата найма</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td class="employee-name">Иван Иванович Иванов</td>
+                            <td>IT инженер</td>
+                            <td class="salary-low">90,000 ₸</td>
+                            <td>2026-06-02</td>
+                            <td><span class="badge badge-default">📌 Младший специалист</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td class="employee-name">Азат Русланулы</td>
+                            <td>IT практикнт</td>
+                            <td class="salary-zero">0 ₸</td>
+                            <td>2026-06-02</td>
+                            <td><span class="badge badge-default">🎓 Стажер</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td class="employee-name">Абаев Расул</td>
+                            <td>практикант</td>
+                            <td class="salary-zero">0 ₸</td>
+                            <td>2026-06-02</td>
+                            <td><span class="badge badge-default">🎓 Стажер</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>4</strong></td>
+                            <td class="employee-name">Багдан Богомдан</td>
+                            <td>практикант</td>
+                            <td class="salary-zero">0 ₸</td>
+                            <td>2026-06-02</td>
+                            <td><span class="badge badge-default">🎓 Стажер</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="footer">
+                <p>🏢 Отчет сгенерирован автоматически из базы данных компании</p>
+                <p>© 2026 Все права защищены | Валюта: Казахстанский тенге (₸)</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Аналитический отчет SQL-7 (Employees)</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 30px; background: #f0f2f5; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 15px; padding: 25px; }
+        h1 { color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        h2 { color: #764ba2; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th { background: #667eea; color: white; padding: 10px; }
+        td { padding: 8px; border-bottom: 1px solid #ddd; }
+        tr:hover { background: #f5f5f5; }
+        .summary { background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Аналитический отчет SQL-7</h1>
+        <p>Только таблица Employees | Сформирован: 02.06.2026 14:27:03</p>
+        
+        <div class="summary">
+            <h3>📈 Результаты выполнения</h3>
+            <p>✅ SQL-7.1: GROUP BY (средняя зарплата по должностям)</p>
+            <p>✅ SQL-7.2: Подзапрос (зарплата выше средней)</p>
+            <p>✅ SQL-7.3: Создано представление EmployeeStats</p>
+            <p>✅ SQL-7.4: Создана функция bonus()</p>
+            <p>✅ Дополнительные запросы: 8 штук</p>
+        </div>
+        
+        <h2>🏆 Топ сотрудников по зарплате</h2>
+        <table>
+            <tr><th>Место</th><th>ФИО</th><th>Должность</th><th>Зарплата</th></tr></table>
+        
+        <h2>📊 Статистика по должностям</h2>
+        <table>
+            <tr><th>Должность</th><th>Сотрудников</th><th>Средняя з/п</th></tr></table>
+        
+        <p style="text-align: center; margin-top: 30px; color: #666;">
+            Отчет сгенерирован автоматически<br>
+            SQL-7: Продвинутые запросы (только Employees)
+        </p>
+    </div>
+</body>
+</html>

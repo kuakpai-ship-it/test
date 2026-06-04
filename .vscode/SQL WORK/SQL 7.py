@@ -1,4 +1,3 @@
-# task7_advanced.py
 import sqlite3
 import os
 

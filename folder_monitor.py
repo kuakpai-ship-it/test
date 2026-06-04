@@ -32,57 +32,57 @@ print("Для остановки нажмите Ctrl+C")
 print("=" * 50)
 
 # Список для хранения имен уже обработанных файлов
-obrabotannye_fayly = []
+processed_files = []
 
 # Функция для записи в лог
-def zapisat_v_log(deystvie, staroe_imya, novoe_mesto):
+def write_to_log(new_name, old_name, new_location):
     with open(LOG_FILE, "a", encoding="utf-8") as f:
-        vremya = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        f.write(f"[{vremya}] {deystvie}\n")
-        f.write(f"  Файл: {staroe_imya}\n")
-        f.write(f"  Перемещен в: {novoe_mesto}\n")
+        time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"[{time}] {new_name}\n")
+        f.write(f"  Файл: {old_name}\n")
+        f.write(f"  Перемещен в: {new_location}\n")
         f.write(f"  {'-' * 40}\n\n")
 
 # Функция для проверки, является ли файл .txt
-def eto_txt_fail(imya_faila):
-    return imya_faila.lower().endswith(".txt")
+def that_txt_fail(Filename):
+    return Filename.lower().endswith(".txt")
 
 # Функция для создания нового имени с датой
-def sdelat_novoe_imya(staroe_imya):
+def make_new_name(OldName):
     # Получаем текущее время
     seychas = datetime.now()
     # Форматируем: ГГГГ-ММ-ДД_ЧЧ-ММ-СС
-    vremya_str = seychas.strftime("%Y-%m-%d_%H-%M-%S")
+    time_str = seychas.strftime("%Y-%m-%d_%H-%M-%S")
     # Склеиваем: дата_время_оригинальное_имя
-    novoe_imya = vremya_str + "_" + staroe_imya
-    return novoe_imya
+    new_name = time_str + "_" + OldName
+    return new_name
 
 # Функция для обработки одного файла
-def obrabotat_fail(put_k_failu):
+def process_the_file(file_path):
     try:
         # Получаем имя файла
-        staroe_imya = os.path.basename(put_k_failu)
+        old_name = os.path.basename(file_path)
         
         # Создаем новое имя
-        novoe_imya = sdelat_novoe_imya(staroe_imya)
+        new_name = make_new_name(old_name)
         
         # Полный путь для нового файла в папке Archive
-        novyy_put = os.path.join(ARCHIVE_FOLDER, novoe_imya)
+        new_location = os.path.join(ARCHIVE_FOLDER, new_name)
         
-        print(f"\nНайден новый файл: {staroe_imya}")
-        print(f"Переименовываю в: {novoe_imya}")
+        print(f"\nНайден новый файл: {old_name}")
+        print(f"Переименовываю в: {new_name}")
         
         # Перемещаем файл (это работает и как переименование, и как перемещение)
-        shutil.move(put_k_failu, novyy_put)
+        shutil.move(file_path, new_location)
         
         # Записываем в лог
-        zapisat_v_log("ПЕРЕМЕЩЕН И ПЕРЕИМЕНОВАН", staroe_imya, novyy_put)
+        write_to_log("ПЕРЕМЕЩЕН И ПЕРЕИМЕНОВАН", old_name, new_location)
         
         print(f"Готово! Файл перемещен в Archive")
         return True
         
     except Exception as e:
-        print(f"ОШИБКА при обработке файла {staroe_imya}: {e}")
+        print(f"ОШИБКА при обработке файла {old_name}: {e}")
         return False
 
 # Основной цикл программы
@@ -92,35 +92,35 @@ try:
         
         # Получаем список всех файлов в папке Incoming
         try:
-            vse_fayly = os.listdir(INCOMING_FOLDER)
+            all_files = os.listdir(INCOMING_FOLDER)
         except Exception as e:
             print(f"Не могу прочитать папку: {e}")
             time.sleep(CHECK_INTERVAL)
             continue
         
         # Ищем только .txt файлы
-        txt_fayly = []
-        for fail in vse_fayly:
-            if eto_txt_fail(fail):
-                txt_fayly.append(fail)
+        txt_fail = []
+        for fail in all_files:
+            if that_txt_fail(fail):
+                txt_fail.append(fail)
         
         # Если есть txt файлы
-        if len(txt_fayly) > 0:
-            print(f"Найдено TXT файлов: {len(txt_fayly)}")
+        if len(txt_fail) > 0:
+            print(f"Найдено TXT файлов: {len(txt_fail)}")
             
             # Обрабатываем каждый txt файл
-            for imya_faila in txt_fayly:
+            for file_name in txt_fail:
                 # Проверяем, не обрабатывали ли мы уже этот файл
-                if imya_faila not in obrabotannye_fayly:
+                if file_name not in processed_files:
                     # Полный путь к файлу
-                    polnyy_put = os.path.join(INCOMING_FOLDER, imya_faila)
+                    all_path = os.path.join(INCOMING_FOLDER, file_name)
                     
                     # Обрабатываем файл
-                    if obrabotat_fail(polnyy_put):
+                    if process_the_file(all_path):
                         # Добавляем в список обработанных
-                        obrabotannye_fayly.append(imya_faila)
+                        processed_files.append(file_name)
                 else:
-                    print(f"Файл {imya_faila} уже был обработан, пропускаю")
+                    print(f"Файл {file_name} уже был обработан, пропускаю")
         else:
             print("Новых TXT файлов не найдено")
         
@@ -131,7 +131,7 @@ try:
 except KeyboardInterrupt:
     print("\n\n" + "=" * 50)
     print("Остановка программы...")
-    print(f"Всего обработано файлов: {len(obrabotannye_fayly)}")
+    print(f"Всего обработано файлов: {len(processed_files)}")
     print("Лог сохранен в файле log.txt")
     print("До свидания!")
     print("=" * 50)

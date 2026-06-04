@@ -1,4 +1,3 @@
-# task6_admin.py
 import sqlite3
 import os
 import shutil
